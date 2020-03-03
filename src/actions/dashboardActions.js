@@ -1,8 +1,32 @@
-import { axiosWithAuth } from "../utils/axiosWithAuth"
+import axios from 'axios';
+// import { axiosWithAuth } from "../utils/axiosWithAuth"
 
-const FETCHING_LOGIN_START = 'FETCHING_LOGIN_START';
 
-export const getLogin = () => dispatch => {
-    dispatch({ type: FETCHING_LOGIN_START })
-        axiosWithAuth.get('/auth/login')
+export const FETCHING_LOGIN_SUCCESS = 'FETCHING_LOGIN_SUCCESS';
+export const FETCHING_LOGIN_ERROR = 'FETCHING_LOGIN_ERROR';
+export const FETCHING_REGISTER_SUCCESS = 'FETCHING_REGISTER_SUCCESS';
+export const FETCHING_REGISTER_ERROR = 'FETCHING_REGISTER_ERROR';
+
+export const getLogin = (user, props) => dispatch => {
+        axios.post('https://damp-hamlet-68165.herokuapp.com/api/auth/login', user)
+            .then( res => {
+                dispatch({type: FETCHING_LOGIN_SUCCESS, payload: res.data});
+                localStorage.setItem('token', res.data.token);
+                props.history.push(`/protected`);
+            })
+            .catch( err => {
+                dispatch({ type: FETCHING_LOGIN_ERROR, payload: err })
+            })           
+}
+
+export const getRegister = (user, props) => dispatch => {
+        axios.post('https://damp-hamlet-68165.herokuapp.com/api/auth/register', user)
+            .then( res => {
+                dispatch({type: FETCHING_REGISTER_SUCCESS, payload: res.data})
+                localStorage.setItem('token', res.data.token)
+                props.history.push('/protected')
+            })
+            .catch( err => {
+                dispatch({type: FETCHING_REGISTER_ERROR, payload: err})
+            })
 }
