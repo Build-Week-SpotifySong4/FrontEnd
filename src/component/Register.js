@@ -1,24 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react'
+import axios from 'axios'
 
-const Register = () => {
-    const [ register, setRegister ] = useState({
-        username: '',
-        password: ''
+function Register () {
+    const [regInput, setRegInput] = useState({
+    regUserName: '',
+    regPassword: ''
     })
 
-    const handleChanges = e => {
-        setRegister({
-            ...register,
-            [e.target.value]: e.target.value
-        })
-    }
+    useEffect(() => {
+        axios.get('https://damp-hamlet-68165.herokuapp.com/api/auth/register')
+        .then((response) => {
+            setRegInput((response.data))
+        }).catch((error) => {error})
+    }, []) 
 
-    const 
+const changeHandler = e => {
+    setRegInput(e.target.value)
+}
 
     return (
-        // Create registration form here
         <div>
-            
+            <form onSubmit={}>
+                <label>Username:
+                    <input
+                    type='text'
+                    value={regInput}
+                    onChange={changeHandler}
+                    >                   
+                    </input>
+                </label>
+                <label>Password:
+                    <input
+                    type='text'
+                    value={regInput}
+                    onChange={changeHandler}
+                    >
+                    </input>
+                </label>
+                <button>Submit</button>
+            </form>
         </div>
     )
+
 }
+export default Register
