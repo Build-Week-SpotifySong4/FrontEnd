@@ -1,29 +1,34 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
+import { connect } from 'react-redux';
+import { getRegister } from '../actions/dashboardActions';
 
-function Register () {
+function Register = (props) => {
     const [regInput, setRegInput] = useState({
-    regUserName: '',
-    regPassword: ''
+    username: '',
+    password: ''
     })
 
-    useEffect(() => {
-        axios.get('https://damp-hamlet-68165.herokuapp.com/api/auth/register')
-        .then((response) => {
-            setRegInput((response.data))
-        }).catch((error) => {error})
-    }, []) 
-
 const changeHandler = e => {
-    setRegInput(e.target.value)
+    setRegInput({
+      ...regInput, 
+      [e.target.name]: e.target.value
 }
+
+
+const handleSubmit = e => {
+        e.preventDefault();
+        props.getRegister(form, props)
+    }
+
 
     return (
         <div>
-            <form onSubmit={}>
+            <form onSubmit={handleSubmit}>
+             <legend>Register Here</legend>
                 <label>Username:
                     <input
                     type='text'
+                    name="username"
                     value={regInput}
                     onChange={changeHandler}
                     >                   
@@ -32,6 +37,7 @@ const changeHandler = e => {
                 <label>Password:
                     <input
                     type='text'
+                    name="password"
                     value={regInput}
                     onChange={changeHandler}
                     >
@@ -43,4 +49,9 @@ const changeHandler = e => {
     )
 
 }
-export default Register
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps, {getRegister})(Register);

@@ -1,6 +1,6 @@
-
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getLogin } from '../actions/dashboardActions';
 
 //Setting state for user's input
 const Login = (props) => {
@@ -9,22 +9,22 @@ const Login = (props) => {
         password: ''
     })
 
-
-    useEffect(() => {
-        axios.get('https:damp-hamlet-68165.herokuapp.com/api/auth/login')
-        .then((response) => {
-            setInputData(response.data)
-        }).catch((error) => {console.log(error)})
-    }, []
-    )
-
 const handleChange = e => {
-    setInputData(e.target.value)
-}
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value
+    })
+    }
+
+ const handleSubmit = e => {
+        e.preventDefault();
+        props.getLogin(form, props);
+    }
 
     return (
         //  Create Log in form here
         <div>
+
             <form onSubmit={handleSubmit}>
                 <label>Username:
                     <input 
@@ -48,4 +48,8 @@ const handleChange = e => {
     )
 }
 
-export default Login;
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps, { getLogin })(Login);
