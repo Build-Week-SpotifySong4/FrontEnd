@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Search from './component/Search'
 
 import Logout from './component/Logout';
 import SongList from './component/SongList';
@@ -29,7 +30,7 @@ function App() {
         <PrivateRoute exact path='/homepage' component={HomePage}/>
         <PrivateRoute path='/songlist' component={SongList} />
         <PrivateRoute path="/logout" component={Logout} />
-        
+        <Search/>
         <Route path='/register' component={Register}/>
        </div>
     </Router>

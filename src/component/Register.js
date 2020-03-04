@@ -1,23 +1,27 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { getRegister } from '../actions/dashboardActions';
+import { useForm } from 'react-hook-form'
 
-function Register = (props) => {
+const Register = (props) => {
     const [regInput, setRegInput] = useState({
     username: '',
     password: ''
     })
 
+    const { register } = useForm()
+
 const changeHandler = e => {
     setRegInput({
       ...regInput, 
       [e.target.name]: e.target.value
-}
+
+    })}
 
 
 const handleSubmit = e => {
         e.preventDefault();
-        props.getRegister(form, props)
+        props.getRegister(regInput, props)
     }
 
 
@@ -29,7 +33,8 @@ const handleSubmit = e => {
                     <input
                     type='text'
                     name="username"
-                    value={regInput}
+                    ref = {register({register: true})}
+                    value={props.username}
                     onChange={changeHandler}
                     >                   
                     </input>
@@ -38,7 +43,8 @@ const handleSubmit = e => {
                     <input
                     type='text'
                     name="password"
-                    value={regInput}
+                    ref = {register({register: true})}
+                    value={props.password}
                     onChange={changeHandler}
                     >
                     </input>

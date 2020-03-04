@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getLogin } from '../actions/dashboardActions';
+import {useForm} from 'react-hook-form'
 
 //Setting state for user's input
 const Login = (props) => {
@@ -9,38 +10,46 @@ const Login = (props) => {
         password: ''
     })
 
+    const { register, errors, handleSubmit } = useForm()
+
 const handleChange = e => {
     setInputData({
       ...inputData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target
     })
     }
 
- const handleSubmit = e => {
+ const login = e => {
         e.preventDefault();
-        props.getLogin(form, props);
+        props.getLogin(inputData, props);
     }
-
+//jkldkjfjefkajdfk
     return (
         //  Create Log in form here
         <div>
 
-            <form onSubmit={handleSubmit}>
-                <label>Username:
+            <form onSubmit={handleSubmit(login)}>
+                <label >Username:
                     <input 
+                    name = 'username'
+                    ref = {register({required: true, minLength: 3})}
                     type='text'
                     onChange= {handleChange}
-                    value={inputData}
+                    value={props.username}
                     >
                     </input>
+                    {errors.username && <p style={{color: 'white'}}>This is required</p>}
                 </label>
                 <label>Password:
                     <input
+                    name = 'password'
+                    ref = {register({required: true, minLength: 3})}
                     type='text'
                     onChange= {handleChange}
-                    value={inputData}
+                    value={props.password}
                     >
                     </input>
+                    {errors.username && <p>This is required</p>}
                 </label>
                 <button>Login</button>
             </form>

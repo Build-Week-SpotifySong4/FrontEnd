@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-export const axiosWithAuth = () => {
-    const token = window.localStorage.getItem('token');
-
+export const spotifyWithAuth = () => {
+    const spotifyToken = window.localStorage.getItem('spotifyToken');
     return axios.create({
         headers: {
-            authorization: token
+            authorization: spotifyToken
         },
-        baseURL: 'https://damp-hamlet-68165.herokuapp.com/api'
+        baseURL: 'https://api.spotify.com/v1/'
     });
 }

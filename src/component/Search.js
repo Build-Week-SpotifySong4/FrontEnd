@@ -1,33 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import { spotifyWithAuth } from '../utils/axiosWithAuth'
 
-function Search () {
+function Search (props) {
 
-    const [songData, setSongData] = useState([])
-    const [query, setQuery] = useState('')
+    
 
-useEffect(() => {
-    axios.get('https://damp-hamlet-68165.herokuapp.com/api/songs')
-    .then((response) => {
-        setSongData((response.data))
-    }).catch((error) => {console.log(error)})
-},[])
-
-const changeHandler = e => {
-    setQuery(e.target.value)
-}
-
-const changeHandler = e => {
-    setSongData(e.target.value)
+const queryChangeHandler = e => {
+    props.setQuery(e.target.value)
 }
 
 return (
     <div>
-        <form onSubmit={}>
-            <label>Start Rockin:
+        <form>
+            <label>Start Searchin:
                 <input
                 type='text'
-                value={songData}
-                onSubmit={changeHandler}
+                value={props.query}
+                onChange={queryChangeHandler}
                 >
                 </input>
             </label>
@@ -39,3 +28,9 @@ return (
 }
 
 export default Search
+
+
+// useEffect(() => {
+//     const searchSong = songData.filter(song => song.name.toLowerCase().includes(query.toLowerCase()))
+//     setSongData()
+// },[])
