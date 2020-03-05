@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.loginText{
+  color: white;
+  margin-bottom: 30px;
+}
+.userNameText{
+  color: white;
+  margin-right: 40px;
+}
+.passwordText{
+  color: white;
+}
+form.label {
+  margin: 0 auto;
+}
+.logButton{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #00BE50;
+  width: 100px;
+  border: 2px solid white;
+}

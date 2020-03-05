@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { getLogin } from '../actions/dashboardActions';
+import {useForm} from 'react-hook-form'
+import {Button} from 'reactstrap'
 
 //Setting state for user's input
 const Login = (props) => {
@@ -9,6 +11,8 @@ const Login = (props) => {
         password: ''
     })
 
+    const { register, errors, handleSubmit } = useForm()
+
 const handleChange = e => {
     setInputData({
       ...inputData,
@@ -16,40 +20,63 @@ const handleChange = e => {
     })
     }
 
- const handleSubmit = e => {
-        e.preventDefault();
-        props.getLogin(form, props);
+ const login = e => {
+        // e.preventDefault();
+        props.getLogin(inputData, props);
     }
 
     return (
         //  Create Log in form here
         <div>
 
-            <form onSubmit={handleSubmit}>
-                <label>Username:
+            <form onSubmit={handleSubmit(login)}>
+                
+                <legend class='loginText'>Login Here</legend>
+                <label class='userNameText'>Username:&emsp;
                     <input 
                     type='text'
-                    onChange= {handleChange}
-                    value={inputData}
-                    >
-                    </input>
-                </label>
-                <label>Password:
-                    <input
+                    name = 'username'
+                    ref = {register({required: true, minLength: 3})}
                     type='text'
                     onChange= {handleChange}
-                    value={inputData}
+                    value={props.username}
                     >
                     </input>
+                
+                    {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>nope not nuff</p>)}
+                    
                 </label>
-                <button>Login</button>
+                <label class='passwordText'>Password:&emsp;
+                    <input
+                    type='text'
+                    name = 'password'
+                    ref = {register({required: true, minLength: 3})}
+                    onChange= {handleChange}
+                    value={props.password}
+                    >
+                    </input>
+                
+                    {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>nope not nuff</p>)}
+                
+                </label>
+                
+                <div>
+                 <button class='logButton'>Login</button> 
+                 </div>
+                
             </form>
+            
         </div>
     )
 }
+
 
 const mapStateToProps = state => ({
     user: state.user
 })
 
 export default connect(mapStateToProps, { getLogin })(Login);
+
+// {{color: 'white'}}

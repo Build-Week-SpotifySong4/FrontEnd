@@ -12,7 +12,7 @@ export const getLogin = (user, props) => dispatch => {
             .then( res => {
                 dispatch({type: FETCHING_LOGIN_SUCCESS, payload: res.data});
                 localStorage.setItem('token', res.data.token);
-                props.history.push(`/protected`);
+                props.history.push(`/homepage`);
             })
             .catch( err => {
                 dispatch({ type: FETCHING_LOGIN_ERROR, payload: err })
@@ -24,7 +24,7 @@ export const getRegister = (user, props) => dispatch => {
             .then( res => {
                 dispatch({type: FETCHING_REGISTER_SUCCESS, payload: res.data})
                 localStorage.setItem('token', res.data.token)
-                props.history.push('/protected')
+                props.history.push('/login')
             })
             .catch( err => {
                 dispatch({type: FETCHING_REGISTER_ERROR, payload: err})
