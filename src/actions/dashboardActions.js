@@ -13,7 +13,7 @@ export const getLogin = (user, props) => dispatch => {
                 dispatch({type: FETCHING_LOGIN_SUCCESS, payload: res.data});
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('spotifyToken', res.data.spotifyToken)
-                props.history.push(`/homepage`);
+                props.history.push('/homepage');
             })
             .catch( error => {
                 dispatch({ type: FETCHING_LOGIN_ERROR, payload: error })

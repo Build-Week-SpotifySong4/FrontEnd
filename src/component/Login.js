@@ -21,7 +21,6 @@ const handleChange = e => {
     })
     }
 
-
  const login = e => {
         props.getLogin(inputData, props);
     }
@@ -29,43 +28,46 @@ const handleChange = e => {
     return (
         //  Create Log in form here
 
-        <div>
+        <div className='entireContainer'>
 
-            <form onSubmit={handleSubmit(login)}>
+            <form className='formContainer' onSubmit={handleSubmit(login)}>
                 
                 <legend class='loginText'>Login Here</legend>
-                <label class='userNameText'>Username:&emsp;
+            <div className='inputGroup'>
+                <label class='userNameText'>Username:
+                </label>
                     <input 
                     type='text'
                     name = 'username'
-                    ref = {register({required: true, minLength: 3})}
+                    ref = {register({required: true, minLength: 2})}
                     type='text'
                     onChange= {handleChange}
                     value={props.username}
                     >
-                    </input>
+                    </input>                 
                 
-                    {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
-                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>nope not nuff</p>)}
-                    
+                {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+            </div> 
+
+            <div className='inputGroup'>
+                <label class='passwordText'>Password:
                 </label>
-                <label class='passwordText'>Password:&emsp;
                     <input
                     type='text'
                     name = 'password'
-                    ref = {register({required: true, minLength: 3})}
+                    ref = {register({required: true, minLength: 2})}
                     onChange= {handleChange}
                     value={props.password}
                     >
                     </input>
                 
-                    {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
-                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>nope not nuff</p>)}
+               
+                {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+            </div>
                 
-                </label>
-
-                
-                <div>
+                <div className='bottomButtons'>
                  <button class='logButton'>Login</button>                
                 <Link to="/register">Register</Link>
               </div>
@@ -82,4 +84,3 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, { getLogin })(Login);
 
-// {{color: 'white'}}

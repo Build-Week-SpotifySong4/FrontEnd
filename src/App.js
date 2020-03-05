@@ -44,7 +44,7 @@ function App() {
             />
           )}
           />
-        <PrivateRoute exact path='/homepage' component={HomePage}/>
+        <PrivateRoute path='/homepage' component={HomePage}/>
         <PrivateRoute path='/songlist' component={SongList} />
         <PrivateRoute path="/logout" component={Logout} />
         
