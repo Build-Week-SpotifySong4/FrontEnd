@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getLogin } from '../actions/dashboardActions';
 import {useForm} from 'react-hook-form'
 import {Button} from 'reactstrap'
 
 //Setting state for user's input
-const Login = (props) => {
+const Login = props => {
     const [inputData , setInputData] = useState({
         username: '',
         password: ''
@@ -20,13 +21,14 @@ const handleChange = e => {
     })
     }
 
+
  const login = e => {
-        // e.preventDefault();
         props.getLogin(inputData, props);
     }
 
     return (
         //  Create Log in form here
+
         <div>
 
             <form onSubmit={handleSubmit(login)}>
@@ -61,11 +63,12 @@ const handleChange = e => {
                     {errors.password && errors.password.type === 'minLength' && (<p class='error'>nope not nuff</p>)}
                 
                 </label>
+
                 
                 <div>
-                 <button class='logButton'>Login</button> 
-                 </div>
-                
+                 <button class='logButton'>Login</button>                
+                <Link to="/register">Register</Link>
+              </div>
             </form>
             
         </div>

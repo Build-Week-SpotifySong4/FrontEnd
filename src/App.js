@@ -25,7 +25,25 @@ function App() {
     <Router>
       <NavBar loggedIn={loggedIn}/>
        <div className="App">
-         <Route path='/login' component={Login}/>
+        <Route
+          exact 
+          path='/' 
+          render={props => (
+            <Login 
+              {...props}
+              loggedIn={loggedIn}
+            />
+          )}
+            />
+        <Route
+          path='/login'
+          render={props => (
+            <Login
+              {...props}
+              loggedIn={loggedIn}
+            />
+          )}
+          />
         <PrivateRoute exact path='/homepage' component={HomePage}/>
         <PrivateRoute path='/songlist' component={SongList} />
         <PrivateRoute path="/logout" component={Logout} />

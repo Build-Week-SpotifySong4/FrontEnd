@@ -1,36 +1,55 @@
 import React, { useState, useEffect } from 'react';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { spotifyWithAuth } from '../utils/axiosWithAuth';
 
 
-const SongList = (props) => {
-    const [songList, setSongList] = useState();
+const SongList = () => {
+    const [songList, setSongList] = useState([]);
+    const [query, setQuery] = useState('');
+
+    console.log(query)
 
     useEffect(() => {
         
-        axiosWithAuth().get('https://damp-hamlet-68165.herokuapp.com/api/songs')
-            .then( res => {
-                console.log('this is the songs results', res.data)
-                setSongList(res.data)
+        spotifyWithAuth().get(`search?q=${encodeURI(query)}&type=track`)
+                // console.log('this is the songs results', res.data)
+                .then( res => {
+                    console.log(res.data)
+                    setSongList(res.data.tracks.items)
+                })   
+                .catch( err => {
+                    console.log('Error with get request for songs', err)
             })
-            .catch( err => {
-                console.log('Error with get request for songs', err)
-            })
-    }, [])
+    }, [query]);
+
+    const handleChange = e => {
+        setQuery(e.target.value)
+    };
 
     return (
         <div>
             <h1 className='test'>TEST</h1>
-            {/* {songList.map( song => {
+            <form>
+                <input 
+                    type="text"
+                    name='query'
+                    id='query'
+                    placeholder="Enter song"
+                    value={query}
+                    onChange={handleChange}
+                />
+            </form>
+            {songList.map( song => {
                 return (
                     <div>
-                        <p>{song.songs}</p>
+                        <p>{song.items}</p>
                     </div>    
                 )
-            })} */}
+            })}
         </div>
 
     )
 }
+
 
 export default SongList;

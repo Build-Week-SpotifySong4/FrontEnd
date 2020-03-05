@@ -17,12 +17,9 @@ const changeHandler = e => {
       [e.target.name]: e.target.value
 })}
 
-
 const registration = e => {
-        // e.preventDefault();
         props.getRegister(regInput, props)
     }
-
 
     return (
         <div>
