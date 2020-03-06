@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from 'react';
-
 import { spotifyWithAuth } from '../utils/axiosWithAuth';
-
-
 const SongList = () => {
     const [songList, setSongList] = useState([]);
     const [query, setQuery] = useState('');
-
     console.log(query)
-
     useEffect(() => {
-        
         spotifyWithAuth().get(`search?q=${encodeURI(query)}&type=track`)
                 // console.log('this is the songs results', res.data)
                 .then( res => {
-                    console.log(res.data)
+                    console.log(res.data.tracks.items)
                     setSongList(res.data.tracks.items)
                 })   
                 .catch( err => {
                     console.log('Error with get request for songs', err)
             })
     }, [query]);
-
     const handleChange = e => {
         setQuery(e.target.value)
     };
-
     return (
         <div>
             <h1 className='test'>TEST</h1>
@@ -40,16 +32,19 @@ const SongList = () => {
                 />
             </form>
             {songList.map( song => {
+                console.log(song.album)
                 return (
                     <div>
-                        <p>{song.items}</p>
+                        <img src={song.album.images[1].url}></img>
+                        <p>{song.name}</p>
+                        <p>{song.popularity}</p>
+                        <p>{song.preview_url}</p>
+
+                        <button>SAVE</button>
                     </div>    
                 )
             })}
         </div>
-
     )
 }
-
-
 export default SongList;
