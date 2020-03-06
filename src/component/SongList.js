@@ -33,6 +33,7 @@ const SongList = () => {
                 />
             </form>
             {songList.map( song => {
+
                 console.log(song.album.images[0])
                 return (
                     <div className='songList'>
@@ -42,6 +43,7 @@ const SongList = () => {
                             <button>SAVE</button>
                         </div>   
                     </div> 
+
                 )
             })}
         </div>

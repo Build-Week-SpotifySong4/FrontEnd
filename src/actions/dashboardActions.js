@@ -26,7 +26,7 @@ export const getRegister = (user, props) => dispatch => {
                 dispatch({type: FETCHING_REGISTER_SUCCESS, payload: res.data})
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('spotifyToken', res.data.spotifyToken)
-                props.history.push('/login')
+                props.history.push('/homepage')
             })
             .catch( error => {
                 dispatch({type: FETCHING_REGISTER_ERROR, payload: error})

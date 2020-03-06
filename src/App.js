@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Logout from './component/Logout';
 import SongList from './component/SongList';
@@ -10,8 +11,9 @@ import Login from './component/Login';
 import PrivateRoute from './utils/PrivateRoute';
 import './App.css';
 
-function App() {
+function App(props) {
   const [ loggedIn, setLoggedIn ] = useState();
+  const localUser = localStorage.getItem('user')
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -19,22 +21,14 @@ function App() {
     } else {
       setLoggedIn(true);
     }
-  }, []);
+  }, [localUser]);
 
+  console.log(localUser);
+  
   return (
     <Router>
       <NavBar loggedIn={loggedIn}/>
        <div className="App">
-        <Route
-          exact 
-          path='/' 
-          render={props => (
-            <Login 
-              {...props}
-              loggedIn={loggedIn}
-            />
-          )}
-            />
         <Route
           path='/login'
           render={props => (
@@ -54,4 +48,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  state: state
+})
+
+export default connect(mapStateToProps)(App);
