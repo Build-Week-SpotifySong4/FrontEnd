@@ -22,12 +22,13 @@ const registration = e => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(registration)}>
+        <div className='entireContainer'>
+            <form className= 'formContainer' onSubmit={handleSubmit(registration)}>
                 
              <legend class='loginText'>Register Here</legend>
-            
-                <label class='userNameText'>Username:&emsp;
+            <div className='inputGroup'>
+                <label class='userNameText'>Username:
+                </label>
                     <input
                     type='text'
                     name="username"
@@ -36,10 +37,11 @@ const registration = e => {
                     onChange={changeHandler}
                     >                   
                     </input>
-                    {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
-                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>Nope not nuff</p>)}
+                
+                {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+                <label class='passwordText'>Password:
                 </label>
-                <label class='passwordText'>Password:&emsp;
                     <input
                     type='text'
                     name="password"
@@ -47,11 +49,11 @@ const registration = e => {
                     value={props.password}
                     onChange={changeHandler}
                     >
-                    </input>
-                    {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
-                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>Nope not nuff</p>)}
-                </label>
+                    </input>                  
                 
+                {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+            </div> 
                 <div>
                 <button class='logButton'>Submit</button>
                 </div>
