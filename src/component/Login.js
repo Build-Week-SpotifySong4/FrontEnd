@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getLogin } from '../actions/dashboardActions';
+import {useForm} from 'react-hook-form'
+import {Button} from 'reactstrap'
 
 //Setting state for user's input
 const Login = props => {
@@ -10,6 +12,8 @@ const Login = props => {
         password: ''
     })
 
+    const { register, errors, handleSubmit } = useForm()
+
 const handleChange = e => {
     setInputData({
       ...inputData,
@@ -17,43 +21,66 @@ const handleChange = e => {
     })
     }
 
- const handleSubmit = e => {
-        e.preventDefault();
+ const login = e => {
         props.getLogin(inputData, props);
     }
 
     return (
         //  Create Log in form here
-        <div className="form">
-            <form onSubmit={handleSubmit}>
-                <legend>User Login</legend>
-                <label>Username:
+
+        <div className='entireContainer'>
+
+            <form className='formContainer' onSubmit={handleSubmit(login)}>
+                
+                <legend class='loginText'>Login Here</legend>
+            <div className='inputGroup'>
+                <label class='userNameText'>Username:
+                </label>
                     <input 
                     type='text'
-                    name="username"
-                    onChange={handleChange}
+                    name = 'username'
+                    ref = {register({required: true, minLength: 2})}
+                    type='text'
+                    onChange= {handleChange}
                     value={props.username}
                     >
-                    </input>
+                    </input>                 
+                
+                {errors.username && errors.username.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.username && errors.username.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+            </div> 
+
+            <div className='inputGroup'>
+                <label class='passwordText'>Password:
                 </label>
-                <label>Password:
                     <input
                     type='text'
-                    name='password'
-                    onChange={handleChange}
+                    name = 'password'
+                    ref = {register({required: true, minLength: 2})}
+                    onChange= {handleChange}
                     value={props.password}
                     >
                     </input>
-                </label>
-                <button>Login</button>
+                
+               
+                {errors.password && errors.password.type === 'required' && (<p class='error'>This is required</p>)}
+                    {errors.password && errors.password.type === 'minLength' && (<p class='error'>2 Character Minimum</p>)}
+            </div>
+                
+                <div className='bottomButtons'>
+                 <button class='logButton'>Login</button>                
                 <Link to="/register">Register</Link>
+              </div>
             </form>
+            
         </div>
     )
 }
+
 
 const mapStateToProps = state => ({
     user: state.user
 })
 
 export default connect(mapStateToProps, { getLogin })(Login);
+

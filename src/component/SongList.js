@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { spotifyWithAuth } from '../utils/axiosWithAuth';
+
 const SongList = () => {
     const [songList, setSongList] = useState([]);
     const [query, setQuery] = useState('');
@@ -32,16 +33,17 @@ const SongList = () => {
                 />
             </form>
             {songList.map( song => {
-                console.log(song.album)
-                return (
-                    <div>
-                        <img src={song.album.images[1].url}></img>
-                        <p>{song.name}</p>
-                        <p>{song.popularity}</p>
-                        <p>{song.preview_url}</p>
 
-                        <button>SAVE</button>
-                    </div>    
+                console.log(song.album.images[0])
+                return (
+                    <div className='songList'>
+                        <div>
+                            <img src={song.album.images[1].url}></img>
+                            <p className='songInfo'>{song.name}</p>
+                            <button>SAVE</button>
+                        </div>   
+                    </div> 
+
                 )
             })}
         </div>

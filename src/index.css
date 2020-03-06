@@ -11,3 +11,54 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.loginText{
+  color: white;
+  margin-bottom: 30px;
+}
+.userNameText{
+  color: white;
+ 
+}
+.passwordText{
+  color: white;
+}
+form.label {
+  margin: 0 auto;
+}
+.logButton{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #00BE50;
+  width: 100px;
+  border: 2px solid white;
+}
+.songList div{
+  color: 'white';
+}
+.songInfo{
+  color: 'white'
+}
+.error{
+  display: inline;
+  color: white;
+}
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+}
+.formContainer{
+  width: 8%;
+  display: flex;
+  flex-direction: column;
+}
+.entireContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottomButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
