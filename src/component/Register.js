@@ -25,7 +25,7 @@ const registration = e => {
         <div className='entireContainer'>
             <form className= 'formContainer' onSubmit={handleSubmit(registration)}>
                 
-             <legend class='loginText'>Register Here</legend>
+             <legend class='loginText'>Register Here!</legend>
             <div className='inputGroup'>
                 <label class='userNameText'>Username:
                 </label>
